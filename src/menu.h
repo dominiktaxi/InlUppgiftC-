@@ -1,14 +1,15 @@
 #ifndef MENU_H
 #define MENU_H
-#include "application.h"
+
 #include "utils.h"
+class Application;
 class Menu
 {
     public:
-    Menu();
+    Menu(Application*);
     void awaitCommand();
     private:
-    Application _app;
+    Application* _app;
 };
 
 #endif

@@ -1,5 +1,7 @@
 #include "insertionsort.h"
+#include "eventlog.h"
 #include <vector>
+struct Event;
 void InsertionSort::sortList(EventList* list)
 {
     if(list->size <= 0) return;
@@ -15,17 +17,17 @@ void InsertionSort::sortList(EventList* list)
 
 
     int end = list->size;
-    int biggestFound = list->head->event->value();
+    int biggestFound = list->head->event->timestamp();
     int indexFound = 0;
     while(end > 0)
     {
-        biggestFound = events[0]->value();
+        biggestFound = events[0]->timestamp();
         indexFound = 0;
         for(int i = 0; i < end - 1; i++)
         {
-            if(biggestFound < events[ i + 1 ]->value())
+            if(biggestFound < events[ i + 1 ]->timestamp())
             {
-                biggestFound = events[ i + 1 ]->value();
+                biggestFound = events[ i + 1 ]->timestamp();
                 indexFound = i + 1;
             }
         }

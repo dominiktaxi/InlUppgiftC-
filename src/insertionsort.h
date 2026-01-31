@@ -4,7 +4,7 @@
 class InsertionSort : public SortStrategy
 {
     public:
-    void sortList(EventList*) override;
+    virtual void sortList(EventList*) override;
     private:
     void _swap(Event**, Event**);
 };

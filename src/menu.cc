@@ -1,6 +1,8 @@
 #include <sstream>
 #include <iostream>
 #include "menu.h"
+#include "application.h"
+Menu::Menu(Application* app) : _app(app) {}
 
 void Menu::awaitCommand()
 {
@@ -30,7 +32,7 @@ void Menu::awaitCommand()
             Utils::printer("Commands:");
             Utils::printer("tick <n>");
             Utils::printer("printlog <n>");
-            Utils::printer("sort");
+            Utils::printer("insertionsort");
             Utils::printer("find <sensorID>");
             Utils::printer("help");
             Utils::printer("exit");
@@ -44,7 +46,7 @@ void Menu::awaitCommand()
             } 
             else 
             {
-                _app.runTick(n);
+                _app->runTick(n);
                 std::cout << n;
                 Utils::printer(" ticks called");
             }
@@ -60,21 +62,13 @@ void Menu::awaitCommand()
                 
             }
         }
-        else if (cmd == "sort") 
+        else if (cmd == "insertionsort") 
         {
-            std::string name;
-            if (!(ss >> name)) 
-            {
-                Utils::printer("invalid command");
-            } 
-            else 
-            {
-                
-            }
+            _app->sort();
         }
         else if (cmd == "printlog") 
         {
-            
+            _app->printAll();
         }
         else 
         {

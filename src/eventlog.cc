@@ -5,7 +5,7 @@
 #include "eventlog.h"
 
 
-EventLog::EventLog(int capacity) : _list(nullptr), _capacity(capacity) 
+EventLog::EventLog(int capacity) : _list(nullptr), _capacity(capacity)
 {
     _list = new EventList;
     _list->head = nullptr;
@@ -88,17 +88,25 @@ void EventLog::set(int index, Event* event)
 
 void EventLog::printAll() const
 {
+    const char * name;
+    
     Node* temp = _list->head;
     while(temp != nullptr)
     {
-        if(temp->event->type() == Event::TYPE::MOTION)
-        {
-            std::cout << "MOTION" << std::endl;
-        }
-        else if(temp->event->type() == Event::TYPE::TEMPERATURE_SAMPLE)
-        {
-            std::cout << "TEMPERATURE" << std::endl;
-        }
+        if(temp->event->type() == Event::TYPE::HUMIDITY_SAMPLE) name = "Humidity";
+        if(temp->event->type() == Event::TYPE::MOTION) name = "Motion";
+        if(temp->event->type() == Event::TYPE::OVERHUMIDITY) name = "Humidity alarm";
+        if(temp->event->type() == Event::TYPE::OVERTEMPERATURE) name = "Temperature alarm";
+        if(temp->event->type() == Event::TYPE::TEMPERATURE_SAMPLE) name = "Temperature";
+        std::cout << "TimeStamp: " << temp->event->timestamp() << std::endl;
+        std::cout << "Name: " << name << "\n" << std::endl;
+
         temp = temp->next;
     }
+}
+
+
+EventList* EventLog::list()
+{
+    return _list;
 }

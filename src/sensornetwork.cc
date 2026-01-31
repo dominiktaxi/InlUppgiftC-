@@ -1,5 +1,10 @@
 #include "sensornetwork.h"
+
 #include <assert.h>
+
+int SensorNetwork::_amount = 0;
+const int SensorNetwork::_MAX = MAX_SENSORS;
+
 SensorNetwork::SensorNetwork()
 {
     _sensors = new Sensor*[MAX_SENSORS];
@@ -23,20 +28,21 @@ void SensorNetwork::scan(EventQueue* queue)
     for(int i = 0; i < _amount; i++)
     {
         int value = _sensors[ i ]->readValue();
+        int timeStamp = _time.time();
         if( _sensors[ i ]->type() == Sensor::TYPE::TEMPERATURE )
         {
-            if ( value > 30 )   { event = new Event( Event::TYPE::OVERTEMPERATURE, value ); }
-            else                { event = new Event( Event::TYPE::TEMPERATURE_SAMPLE, value ); }
+            if ( value > 30 )   { event = new Event( Event::TYPE::OVERTEMPERATURE, value, timeStamp ); }
+            else                { event = new Event( Event::TYPE::TEMPERATURE_SAMPLE, value, timeStamp ); }
             
         }
         else if( _sensors[ i ]->type() == Sensor::TYPE::HUMIDITY )
         {
-            if( value > 60 )    { event = new Event( Event::TYPE::OVERHUMIDITY, value ); }
-            else                { event = new Event( Event::TYPE::HUMIDITY_SAMPLE, value); }
+            if( value > 60 )    { event = new Event( Event::TYPE::OVERHUMIDITY, value, timeStamp ); }
+            else                { event = new Event( Event::TYPE::HUMIDITY_SAMPLE, value, timeStamp ); }
         }
         else if( _sensors[ i ]->type() == Sensor::TYPE::MOTION)
         {
-                                  event = new Event( Event::TYPE::MOTION, value );
+                                  event = new Event( Event::TYPE::MOTION, value, timeStamp );
         }
         queue->enqueue( event );
     }

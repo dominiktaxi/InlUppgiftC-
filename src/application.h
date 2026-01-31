@@ -6,7 +6,7 @@
 #include "eventlog.h"
 #include "sensornetwork.h"
 #include "insertionsort.h"
-
+#include "menu.h"
 class Application
 {
     public:
@@ -15,15 +15,18 @@ class Application
         INSERTION
     };
     Application(int, int);
-    
+    ~Application();
+    void awaitCommand();
     void selectSorting(SORTING_TYPE);
-    void sort(EventList*);
+    void sort();
     void runTick(int);
+    void printAll() const;
     private:
     SensorNetwork _sensorNetwork;
     EventLog _eventLog;
     EventQueue _eventQueue;
     SortStrategy* _sortStrategy;
+    Menu _menu;
 
     void _scanSensors();
     void _logEvents();

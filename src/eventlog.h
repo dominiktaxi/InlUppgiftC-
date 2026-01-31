@@ -1,6 +1,7 @@
 #ifndef EVENTLOG_H
 #define EVENTLOG_H
 #include "event.h"
+
 struct Node
 {
     Event* event;
@@ -24,10 +25,11 @@ void append(Event*);
 const Event& eventByIndex(int index) const;
 void set(int, Event*);
 void printAll() const;
-
+EventList* list();
 private:
 EventList* _list;
 int _capacity;
+
 
 };
 #endif
