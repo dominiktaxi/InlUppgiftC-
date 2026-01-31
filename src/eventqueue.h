@@ -14,10 +14,11 @@ void create(int capacity);
 void destroy(EventQueue*);
 bool isEmpty() const;
 bool isFull() const;
-int enqueue(Event::TYPE, float);
-Event dequeue();
+void enqueue(Event*);
+Event* dequeue();
 void clear();
 int size() const;
+void printAll() const;
 private:
     int _front;
     int _size;

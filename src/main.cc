@@ -1,8 +1,7 @@
-#include <iostream>
-
-
+#include "menu.h"
 int main()
 {
-    int* dude = new int[100];
-    std::cout << "hello" << std::endl;
+    Menu menu;
+    menu.awaitCommand();
+    return 0;
 }

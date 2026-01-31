@@ -1,4 +1,5 @@
 #include "eventqueue.h"
+#include <iostream>
 #include <assert.h>
 
 EventQueue::EventQueue(int capacity) : _events(nullptr), _front(0), _size(0), _capacity(capacity)
@@ -8,6 +9,7 @@ EventQueue::EventQueue(int capacity) : _events(nullptr), _front(0), _size(0), _c
     {
         _events[i] = nullptr;
     }
+    _front = 0;
 }
 
 
@@ -21,11 +23,7 @@ EventQueue::~EventQueue()
 }
 void EventQueue::create(int capacity)
 {
-    _size = capacity;
-
-    _events = new Event*[capacity];
-
-    _front = 0;
+    
 }
 
 bool EventQueue::isEmpty() const
@@ -39,24 +37,22 @@ bool EventQueue::isFull() const
 }
 
 //ingen assert q != NULL för att Eventq skapas på stacken per definition
-int EventQueue::enqueue(Event::TYPE type, float value)
+void EventQueue::enqueue(Event* event)
 {
     assert( !isFull() );
     int index = (_front + _size) % _capacity;
-    _events[index] = new Event(type, value);
+    _events[index] = event;
     _size++;
 }
     
-Event EventQueue::dequeue()
+Event* EventQueue::dequeue()
 {
-   assert( !EventQueue::isEmpty() );
-   int index = _front;
-   _front = (_front + 1) % _capacity;
-   _size--;
-   Event ret = *_events[ index ];
-   delete _events[ index ];
-   _events[ index ] = nullptr;
-   return ret;
+    assert( !EventQueue::isEmpty() );
+    Event* ret = _events[ _front ];
+    _events[ _front ] = nullptr;
+    _front = (_front + 1) % _capacity;
+    _size--;
+    return ret;
 }
 
 void EventQueue::clear()
@@ -68,4 +64,16 @@ void EventQueue::clear()
 int EventQueue::size() const
 {
     return _size;
+}
+
+void EventQueue::printAll() const
+{
+    int index = _front;
+    for(int i = 0; i < _size; i++)
+    {
+        if(_events[ index ]->type() == Event::TYPE::TEMPERATURE_SAMPLE) std::cout << "temperature" << std::endl;
+        if(_events[ index ]->type() == Event::TYPE::MOTION) std::cout << "motion" << std::endl;
+        index++;
+        index = index % _capacity;
+    }
 }

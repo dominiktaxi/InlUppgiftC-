@@ -1,19 +1,20 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <assert.h>
+#include <iostream>
 #include "eventlog.h"
 
 
-EventLog::EventLog(int capacity) : _list(nullptr), _capacity(capacity) {}
-
-void EventLog::create()
+EventLog::EventLog(int capacity) : _list(nullptr), _capacity(capacity) 
 {
     _list = new EventList;
     _list->head = nullptr;
     _list->tail = nullptr;
 }
 
-~EventLog::EventLog()
+//create finns inte, men fixar samma i konstruktorn
+
+EventLog::~EventLog()
 {
     Node* temp = _list->head;
     Node* next = nullptr;
@@ -36,7 +37,7 @@ int EventLog::size() const
 }
 
 
-void EventLog::append(Event::TYPE event)
+void EventLog::append(Event* event)
 {
     assert(_list->size < _capacity);
 
@@ -45,21 +46,21 @@ void EventLog::append(Event::TYPE event)
         _list->head = new Node;
         assert(_list->head != nullptr);
         _list->tail = _list->head;
-        _list->head->type = event;
+        _list->head->event = event;
         _list->head->next = nullptr;
     }
     else
     {
         _list->tail->next = new Node;
         assert(_list->tail->next != nullptr);
-        _list->tail->next->type = event;
+        _list->tail->next->event = event;
         _list->tail = _list->tail->next;
         _list->tail->next = nullptr;
     }
     _list->size++;
 }
 
-Event::TYPE EventLog::getEvent(int index)
+const Event& EventLog::eventByIndex(int index) const
 {
     assert (index < _list->size && index >= 0);
     Node* temp = _list->head;
@@ -68,10 +69,10 @@ Event::TYPE EventLog::getEvent(int index)
         temp = temp->next;
     }
     assert(temp != nullptr);
-    return temp->type;
+    return *(temp->event);
 }
 
-void EventLog::set(int index, Event::TYPE type)
+void EventLog::set(int index, Event* event)
 {
     assert(_list != nullptr);
     assert(index < _list->size && index >= 0);
@@ -82,19 +83,22 @@ void EventLog::set(int index, Event::TYPE type)
         temp = temp->next;
     }
     assert(temp != nullptr);
-    _list->head->type = type;
+    _list->head->event = event;
 }
 
-int EventLog::find(int key, int* outValue, const Table* table)
+void EventLog::printAll() const
 {
-
-    return 0;
-}
-
-
-
-
-void eventlog_printAll(const Table* table)
-{
-   
+    Node* temp = _list->head;
+    while(temp != nullptr)
+    {
+        if(temp->event->type() == Event::TYPE::MOTION)
+        {
+            std::cout << "MOTION" << std::endl;
+        }
+        else if(temp->event->type() == Event::TYPE::TEMPERATURE_SAMPLE)
+        {
+            std::cout << "TEMPERATURE" << std::endl;
+        }
+        temp = temp->next;
+    }
 }

@@ -3,7 +3,7 @@
 #include "event.h"
 struct Node
 {
-    Event::TYPE type;
+    Event* event;
     struct Node* next;
 };
 
@@ -19,11 +19,11 @@ class EventLog
 public:
 EventLog(int);
 ~EventLog();
-void create();
 int size() const;
-void append(Event::TYPE);
-Event::TYPE getEvent(int index);
-void set(int, Event::TYPE);
+void append(Event*);
+const Event& eventByIndex(int index) const;
+void set(int, Event*);
+void printAll() const;
 
 private:
 EventList* _list;

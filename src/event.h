@@ -4,13 +4,25 @@
 class Event
 {
     public:
-    enum class TYPE {TEMPERATURE_SAMPLE, UNDERTEMPERATURE, OVERTEMPERATURE, MOTION};
+    enum class TYPE 
+    {
+        TEMPERATURE_SAMPLE,
+        HUMIDITY_SAMPLE, 
+        MOTION,
+        UNDERTEMPERATURE, 
+        OVERTEMPERATURE, 
+        UNDERHUMIDITY,
+        OVERHUMIDITY
+    };
 
-    Event(const TYPE type, const float value) : _type(type), _value(value) {}
+    Event(const TYPE type, const int value) : _type(type), _value(value) {}
+    Event() = default;
+    
     TYPE type() const;
+    int value() const;
     private:
-    const TYPE _type;
-    const float _value;
+    TYPE _type;
+    int _value;
 };
 
 

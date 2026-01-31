@@ -4,16 +4,29 @@
 #include <vector>
 #include "eventqueue.h"
 #include "eventlog.h"
-#include "sensor.h"
-#include "event.h"
-
+#include "sensornetwork.h"
+#include "insertionsort.h"
 
 class Application
 {
     public:
-    void scanSensors();
+    enum class SORTING_TYPE
+    {
+        INSERTION
+    };
+    Application(int, int);
+    
+    void selectSorting(SORTING_TYPE);
+    void sort(EventList*);
+    void runTick(int);
     private:
-    std::vector<Sensor> _sensors;
+    SensorNetwork _sensorNetwork;
+    EventLog _eventLog;
+    EventQueue _eventQueue;
+    SortStrategy* _sortStrategy;
+
+    void _scanSensors();
+    void _logEvents();
 };
 
 
