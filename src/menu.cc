@@ -19,7 +19,7 @@ void Menu::awaitCommand()
 
         if (cmd == "") 
         {
-            continue; // empty line
+            continue;
         }
         else if (cmd == "exit") 
         {
