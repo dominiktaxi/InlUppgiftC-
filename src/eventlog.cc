@@ -60,7 +60,7 @@ void EventLog::append(Event* event)
     _list->size++;
 }
 
-const Event& EventLog::eventByIndex(int index) const
+const Event& EventLog::getEventByIndex(int index) const
 {
     assert (index < _list->size && index >= 0);
     Node* temp = _list->head;
@@ -83,7 +83,7 @@ void EventLog::set(int index, Event* event)
         temp = temp->next;
     }
     assert(temp != nullptr);
-    _list->head->event = event;
+    temp->event = event;
 }
 
 void EventLog::printAll() const

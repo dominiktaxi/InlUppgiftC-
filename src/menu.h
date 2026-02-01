@@ -8,6 +8,7 @@ class Menu
     public:
     Menu(Application*);
     void awaitCommand();
+    void sortBy() const;
     private:
     Application* _app;
 };

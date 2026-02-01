@@ -1,6 +1,6 @@
 #include "insertionsort.h"
 
-void sortList(EventList* eventList, InsertionSort::SORT_BY sortBy)
+void InsertionSort::sortList(EventList* eventList, InsertionSort::SORT_BY sortBy)
 {
     Node* temp = eventList->head;
     std::vector<Event**> events;
@@ -37,3 +37,4 @@ void sortList(EventList* eventList, InsertionSort::SORT_BY sortBy)
         }
     }
 }
+

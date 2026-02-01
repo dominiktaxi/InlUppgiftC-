@@ -4,6 +4,7 @@
 #include "application.h"
 #include "sortstrategy.h"
 #include "selectionsort.h"
+#include "insertionsort.h"
 
 Menu::Menu(Application* app) : _app(app) {}
 
@@ -36,6 +37,7 @@ void Menu::awaitCommand()
             Utils::printer("tick <n>");
             Utils::printer("printlog <n>");
             Utils::printer("selectionsort *timestamp | reading | id*");
+            Utils::printer("insertionsort *timestamp | reading | id*");
             Utils::printer("find <sensorID>");
             Utils::printer("help");
             Utils::printer("exit");
@@ -69,15 +71,20 @@ void Menu::awaitCommand()
         {
             SelectionSort selectionSort;
             std::string argument;
-            if(!(ss >> argument)) { Utils::printer("missing sort argument: timestamp | reading | id"); }
+            if(!(ss >> argument)) { Utils::printer("valid choices: timestamp | reading | id"); }
             else if(argument == "timestamp") _app->sort( selectionSort, SortStrategy::SORT_BY::TIMESTAMP ); 
             else if(argument == "reading")   {  _app->sort( selectionSort, SortStrategy::SORT_BY::READING ); }
             else if (argument == "id")        {  _app->sort( selectionSort, SortStrategy::SORT_BY::ID );}
             else Utils::printer("Unknown sort type");
         }
-        else if (cmd == "bubblesort")
+        else if (cmd == "insertionsort")
         {
-
+            InsertionSort insertionSort;
+            std::string argument;
+            if(!(ss >> argument)) { Utils::printer("valid choices: timestamp | reading | id");}
+            else if(argument == "timestamp") _app->sort( insertionSort, SortStrategy::SORT_BY::TIMESTAMP ); 
+            else if(argument == "reading")   {  _app->sort( insertionSort, SortStrategy::SORT_BY::READING ); }
+            else if (argument == "id")        {  _app->sort( insertionSort, SortStrategy::SORT_BY::ID );}
         }
         
         
