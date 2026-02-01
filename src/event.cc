@@ -14,3 +14,8 @@ int Event::timestamp() const
 {
     return _timeStamp;
 }
+
+int Event::sensorId() const
+{
+    return _sensorId;
+}

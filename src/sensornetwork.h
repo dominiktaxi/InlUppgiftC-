@@ -1,6 +1,6 @@
 #ifndef SENSORNETWORK_H
 #define SENSORNETWORK_H
-#define MAX_SENSORS 3
+#define MAX_SENSORS 15
 #include "time.h"
 #include "sensor.h"
 #include "eventqueue.h"
@@ -10,6 +10,7 @@ class SensorNetwork
 {
     public:
     SensorNetwork();
+    ~SensorNetwork();
     void addSensor(Sensor::TYPE);
     void scan(EventQueue*);
     int amount() const;

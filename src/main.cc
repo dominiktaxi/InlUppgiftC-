@@ -2,8 +2,7 @@
 #include "time.h"
 int main()
 {
-    Application app(10, 1000);
-    app.selectSorting(Application::SORTING_TYPE::INSERTION);
+    Application app(10, 10000);
     app.awaitCommand();
     Time time;
     time.time();

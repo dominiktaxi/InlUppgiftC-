@@ -1,8 +1,13 @@
-#include "insertionsort.h"
+#include "selectionsort.h"
+#include "eventlog.h"
+#include "utils.h"
 
-void sortList(EventList* eventList, InsertionSort::SORT_BY sortBy)
+
+void SelectionSort::sortList(EventList* list, SortStrategy::SORT_BY sortBy)
 {
-    Node* temp = eventList->head;
+    if(list->size <= 0) return;
+
+    Node* temp = list->head;
     std::vector<Event**> events;
     while(temp != nullptr)
     {
@@ -21,19 +26,23 @@ void sortList(EventList* eventList, InsertionSort::SORT_BY sortBy)
         return false;
     };
 
-    for(int i = 1; i < events.size(); i++)
+
+    int end = events.size();
+    int biggestIndex = 0;
+    while(end > 0)
     {
-        if( isLess( *events[i], *events[i - 1]) ) 
+        biggestIndex = 0;
+        for(int i = 1; i < end; i++)
         {
-            swap( events[ i - 1 ], events[ i ] );
-            
-            for(int j = i - 1; j > 0; j-- )
+            if(isLess(*events[ biggestIndex ], *events[ i ]))
             {
-                if(isLess(*events[j], *events[j - 1]))
-                {
-                    swap(events[ j ], events[ j - 1 ]);
-                }
+                biggestIndex = i;
             }
         }
+        if (biggestIndex != end - 1)
+        {
+            swap(events[biggestIndex], events[end - 1]);
+        }
+        end--;
     }
 }

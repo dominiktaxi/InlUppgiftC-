@@ -15,16 +15,19 @@ class Event
         OVERHUMIDITY
     };
 
-    Event(const TYPE type, const int value, const int timeStamp) : _type(type), _value(value), _timeStamp(timeStamp) {}
+    Event(const TYPE type, const int value, const int timeStamp, const int id) : _type(type), _value(value), _timeStamp(timeStamp),
+    _sensorId(id) {}
     Event() = default;
     
     TYPE type() const;
     int value() const;
     int timestamp() const;
+    int sensorId() const;
     private:
     TYPE _type;
     int _value;
     int _timeStamp;
+    int _sensorId;
 };
 
 

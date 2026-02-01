@@ -17,18 +17,20 @@ struct EventList
 
 class EventLog
 {
-public:
-EventLog(int);
-~EventLog();
-int size() const;
-void append(Event*);
-const Event& eventByIndex(int index) const;
-void set(int, Event*);
-void printAll() const;
-EventList* list();
-private:
-EventList* _list;
-int _capacity;
+    public:
+    EventLog(int);
+    ~EventLog();
+    int size() const;
+    void append(Event*);
+    const Event& eventByIndex(int index) const;
+    void set(int, Event*);
+    void printAll() const;
+    Event event(int) const;
+    EventList* list();
+    
+    private:
+    EventList* _list;
+    int _capacity;
 
 
 };

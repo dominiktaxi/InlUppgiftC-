@@ -1,12 +1,12 @@
 #ifndef INSERTIONSORT_H
 #define INSERTIONSORT_H
+
 #include "sortstrategy.h"
+
 class InsertionSort : public SortStrategy
 {
     public:
-    virtual void sortList(EventList*) override;
+    void sortList(EventList*, SORT_BY) override;
     private:
-    void _swap(Event**, Event**);
 };
-
 #endif

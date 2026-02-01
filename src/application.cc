@@ -1,7 +1,7 @@
 #include "application.h"
 
 Application::Application(int queueCapacity, int logCapacity) : _eventLog(logCapacity), _eventQueue(queueCapacity),
-_menu(this), _sortStrategy(nullptr)
+_menu(this)
 {
     _sensorNetwork.addSensor(Sensor::TYPE::HUMIDITY);
     _sensorNetwork.addSensor(Sensor::TYPE::TEMPERATURE);
@@ -10,7 +10,7 @@ _menu(this), _sortStrategy(nullptr)
 
 Application::~Application()
 {
-    delete _sortStrategy;
+    
 }
 
 void Application::awaitCommand()
@@ -18,18 +18,9 @@ void Application::awaitCommand()
     _menu.awaitCommand();
 }
 
-void Application::selectSorting(SORTING_TYPE type)
-{
-    if(type == Application::SORTING_TYPE::INSERTION)
-    {
-        _sortStrategy = new InsertionSort;
-    }
-}
 
-void Application::sort()
-{
-    _sortStrategy->sortList(_eventLog.list());
-}
+
+
 
 void Application::runTick(int n)
 {
@@ -62,4 +53,9 @@ void Application::_logEvents()
 void Application::printAll() const
 {
     _eventLog.printAll();
+}
+
+void Application::sort( SortStrategy& strategy, SortStrategy::SORT_BY sortBy)
+{
+    strategy.sortList(_eventLog.list(), sortBy);
 }

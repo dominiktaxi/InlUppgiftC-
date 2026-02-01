@@ -71,8 +71,9 @@ void EventQueue::printAll() const
     int index = _front;
     for(int i = 0; i < _size; i++)
     {
-        if(_events[ index ]->type() == Event::TYPE::TEMPERATURE_SAMPLE) std::cout << "temperature" << std::endl;
-        if(_events[ index ]->type() == Event::TYPE::MOTION) std::cout << "motion" << std::endl;
+        if(_events[ index ]->type() == Event::TYPE::TEMPERATURE_SAMPLE) std::cout << "temperature reading:" << _events[index]->value() << std::endl;
+        if(_events[ index ]->type() == Event::TYPE::MOTION) std::cout << "motion reading: " << _events[index]->value() << std::endl;
+
         index++;
         index = index % _capacity;
     }

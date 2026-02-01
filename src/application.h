@@ -5,7 +5,7 @@
 #include "eventqueue.h"
 #include "eventlog.h"
 #include "sensornetwork.h"
-#include "insertionsort.h"
+#include "selectionsort.h"
 #include "menu.h"
 class Application
 {
@@ -17,15 +17,13 @@ class Application
     Application(int, int);
     ~Application();
     void awaitCommand();
-    void selectSorting(SORTING_TYPE);
-    void sort();
     void runTick(int);
     void printAll() const;
+    void sort(SortStrategy&, SortStrategy::SORT_BY);
     private:
     SensorNetwork _sensorNetwork;
     EventLog _eventLog;
     EventQueue _eventQueue;
-    SortStrategy* _sortStrategy;
     Menu _menu;
 
     void _scanSensors();

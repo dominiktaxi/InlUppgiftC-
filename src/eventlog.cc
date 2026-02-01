@@ -99,12 +99,25 @@ void EventLog::printAll() const
         if(temp->event->type() == Event::TYPE::OVERTEMPERATURE) name = "Temperature alarm";
         if(temp->event->type() == Event::TYPE::TEMPERATURE_SAMPLE) name = "Temperature";
         std::cout << "TimeStamp: " << temp->event->timestamp() << std::endl;
-        std::cout << "Name: " << name << "\n" << std::endl;
+        std::cout << "Name: " << name  << std::endl;
+        std::cout << "Reading: " << temp->event->value() << std::endl;
+        std::cout << "ID: " << temp->event->sensorId() << "\n" << std::endl;
 
         temp = temp->next;
     }
 }
 
+Event EventLog::event(int index) const
+{
+    assert( index < _list->size );
+    Node* temp = _list->head;
+    for(int i = 0; i < index; i++)
+    {
+        if(temp != nullptr){ temp = temp->next; }
+    }
+    
+    return *temp->event;
+}
 
 EventList* EventLog::list()
 {
