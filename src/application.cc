@@ -100,10 +100,8 @@ void Application::checkAlarms() const
     for(int i = 0; i < _observerData._size; i++)
     {
         Observer* observer = _observerData._observers[ i ];
-        if(observer->alarmExists())
-        {
+        if(observer->amountOfAlarms() > 0)
             std::cout << "there are " << observer->amountOfAlarms() << " active alarms" << std::endl;
-        }
         else
         {
             std::cout << "no active alarms" << std::endl;

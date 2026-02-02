@@ -36,7 +36,7 @@ void Menu::awaitCommand()
             Utils::printer("Commands:");
             Utils::printer("last-event <sensorId>");
             Utils::printer("tick <n>");
-            Utils::printer("printlog <n>");
+            Utils::printer("printlog");
             Utils::printer("selectionsort *timestamp | reading | id*");
             Utils::printer("insertionsort *timestamp | reading | id*");
             Utils::printer("find <sensorID>");
