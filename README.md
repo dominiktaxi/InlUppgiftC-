@@ -1,7 +1,7 @@
 Krav för att köra:
 G++ (körde med 13.3.0-6)
 C++ 17 eller senare
-Bygga: (Linux) skriv I src mappen: g++ ·cc -o out    →tryck enter
+Bygga: (Linux) skriv I src mappen: g++ *.cc -o out    →tryck enter
 Sedan skriv:   ./out
 
 Appanvändning:
