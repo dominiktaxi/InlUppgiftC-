@@ -40,8 +40,21 @@ void Menu::awaitCommand()
             Utils::printer("selectionsort *timestamp | reading | id*");
             Utils::printer("insertionsort *timestamp | reading | id*");
             Utils::printer("find <sensorID>");
+            Utils::printer("check-alarms");
             Utils::printer("help");
             Utils::printer("exit");
+        }
+        else if (cmd == "last-event")
+        {
+            int sensorId;
+            if(!(ss >> sensorId))
+            {
+                std::cout << "invalid command" << std::endl;
+            }
+            else
+            {
+                _app->printLastSensorEvent( sensorId );
+            }
         }
         else if (cmd == "tick") 
         {
@@ -57,18 +70,12 @@ void Menu::awaitCommand()
                 Utils::printer(" ticks called");
             }
         }
-        else if (cmd == "find") 
+
+        else if (cmd == "printlog") 
         {
-            int id;
-            if (!(ss >> id)) 
-            {
-                Utils::printer("invalid command");
-            } else 
-            {
-                
-            }
+            _app->printAll();
         }
-        else if (cmd == "selectionsort") 
+         else if (cmd == "selectionsort") 
         {
             SelectionSort selectionSort;
             std::string argument;
@@ -87,12 +94,21 @@ void Menu::awaitCommand()
             else if(argument == "reading")   {  _app->sort( insertionSort, SortStrategy::SORT_BY::READING ); }
             else if (argument == "id")        {  _app->sort( insertionSort, SortStrategy::SORT_BY::ID );}
         }
-        
-        
 
-        else if (cmd == "printlog") 
+        else if (cmd == "find") 
         {
-            _app->printAll();
+            int id;
+            if (!(ss >> id)) 
+            {
+                Utils::printer("invalid command");
+            } else 
+            {
+                _app->findEvent(id);
+            }
+        }
+        else if (cmd == "check-alarms")
+        {
+            _app->checkAlarms();
         }
         else 
         {

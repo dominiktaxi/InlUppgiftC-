@@ -1,11 +1,9 @@
-#include "application.h"
-#include "time.h"
-#include "lastevent.h"
+#include "setup.h"
 int main()
 {
-    Application app(10, 10000);
-    app.awaitCommand();
-    Time time;
-    time.time();
+    Setup setup;
+    setup.addSensors();
+    setup.attachObservers();
+    setup.runApp();
     return 0;
 }

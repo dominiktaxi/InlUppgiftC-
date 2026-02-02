@@ -11,14 +11,14 @@ class SensorNetwork
     public:
     SensorNetwork();
     ~SensorNetwork();
-    void addSensor(Sensor::TYPE);
+    void addSensor(Sensor::TYPE, int);
     void scan(EventQueue*);
     int amount() const;
     static int sensorCapacity();
     private:
     Sensor** _sensors;
     Time _time;
-    static int _amount;
+    int _amount;
     const static int _MAX;
 };
 

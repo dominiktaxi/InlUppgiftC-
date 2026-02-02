@@ -8,16 +8,18 @@ class Sensor
     public:
     enum class TYPE
     {
-        TEMPERATURE,
-        HUMIDITY,
-        MOTION
+        TEMPERATURE = 0,
+        HUMIDITY = 1,
+        MOTION = 2
     };
-    Sensor(TYPE, int);
+    Sensor(TYPE, int, int);
     int readValue();
     TYPE type() const;
     int id() const;
+    int threshold() const;
     private:
     TYPE _type;
     int _id;
+    int _threshold;
 };
 #endif

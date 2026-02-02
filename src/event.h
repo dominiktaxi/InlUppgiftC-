@@ -9,22 +9,27 @@ class Event
         TEMPERATURE_SAMPLE,
         HUMIDITY_SAMPLE, 
         MOTION,
-        UNDERTEMPERATURE, 
-        OVERTEMPERATURE, 
-        UNDERHUMIDITY,
-        OVERHUMIDITY
+        OVER_THRESHOLD,
+        UNDER_THRESHOLD
+    };
+    enum class SENSOR_TYPE
+    {
+        TEMPERATURE = 0,
+        HUMIDITY = 1,
+        MOTION = 2
     };
 
-    Event(const TYPE type, const int value, const int timeStamp, const int id) : _type(type), _value(value), _timeStamp(timeStamp),
-    _sensorId(id) {}
+    Event(const TYPE, const SENSOR_TYPE, const int, const int, const int);
     Event() = default;
     
     TYPE type() const;
+    SENSOR_TYPE sensorType() const;
     int value() const;
     int timestamp() const;
     int sensorId() const;
     private:
     TYPE _type;
+    SENSOR_TYPE _sensorType;
     int _value;
     int _timeStamp;
     int _sensorId;

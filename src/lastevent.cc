@@ -1,6 +1,6 @@
 #include "lastevent.h"
 #include <assert.h>
-LastEvent::LastEvent() : _capacity(MAX_SENSORS), _size(0)
+LastEvent::LastEvent() : _capacity( MAX_SENSORS ), _size(0)
 {
     _events = new Event*[ _capacity ];
     for( int i = 0; i < _capacity; i++)
