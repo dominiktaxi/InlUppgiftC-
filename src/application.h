@@ -6,6 +6,7 @@
 #include "eventlog.h"
 #include "sensornetwork.h"
 #include "selectionsort.h"
+#include "lastevent.h"
 #include "menu.h"
 class Application
 {
@@ -18,16 +19,19 @@ class Application
     ~Application();
     void awaitCommand();
     void runTick(int);
-    void printAll() const;
+    void printAll();
+    void findEvent(int);
     void sort(SortStrategy&, SortStrategy::SORT_BY);
     private:
     SensorNetwork _sensorNetwork;
     EventLog _eventLog;
     EventQueue _eventQueue;
     Menu _menu;
+    LastEvent _lastEvent;
 
     void _scanSensors();
     void _logEvents();
+    void _printEvent(const Event&);
 };
 
 

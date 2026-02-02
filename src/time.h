@@ -8,7 +8,7 @@ class Time
 {
     public:
 
-    Time(): start(std::chrono::steady_clock::now()) {}
+    Time();
 
     int time() const;
     private:

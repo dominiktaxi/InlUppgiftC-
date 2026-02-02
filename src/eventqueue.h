@@ -10,7 +10,6 @@ class EventQueue
 public:
 EventQueue(int);
 ~EventQueue();
-void create(int capacity);
 void destroy(EventQueue*);
 bool isEmpty() const;
 bool isFull() const;

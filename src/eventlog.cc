@@ -10,6 +10,7 @@ EventLog::EventLog(int capacity) : _list(nullptr), _capacity(capacity)
     _list = new EventList;
     _list->head = nullptr;
     _list->tail = nullptr;
+    _list->size = 0;
 }
 
 //create finns inte, men fixar samma i konstruktorn
@@ -27,6 +28,8 @@ EventLog::~EventLog()
     _list->head = nullptr;
     _list->tail = nullptr;
     _list->size = 0;
+    delete _list;
+    _list = nullptr;
 }
 
 
@@ -84,27 +87,6 @@ void EventLog::set(int index, Event* event)
     }
     assert(temp != nullptr);
     temp->event = event;
-}
-
-void EventLog::printAll() const
-{
-    const char * name;
-    
-    Node* temp = _list->head;
-    while(temp != nullptr)
-    {
-        if(temp->event->type() == Event::TYPE::HUMIDITY_SAMPLE) name = "Humidity";
-        if(temp->event->type() == Event::TYPE::MOTION) name = "Motion";
-        if(temp->event->type() == Event::TYPE::OVERHUMIDITY) name = "Humidity alarm";
-        if(temp->event->type() == Event::TYPE::OVERTEMPERATURE) name = "Temperature alarm";
-        if(temp->event->type() == Event::TYPE::TEMPERATURE_SAMPLE) name = "Temperature";
-        std::cout << "TimeStamp: " << temp->event->timestamp() << std::endl;
-        std::cout << "Name: " << name  << std::endl;
-        std::cout << "Reading: " << temp->event->value() << std::endl;
-        std::cout << "ID: " << temp->event->sensorId() << "\n" << std::endl;
-
-        temp = temp->next;
-    }
 }
 
 Event EventLog::event(int index) const

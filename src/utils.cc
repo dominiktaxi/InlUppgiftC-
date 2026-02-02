@@ -18,3 +18,4 @@ int Utils::randomInt(int min, int max)
     int x = dist(rng);
     return x;
 }
+

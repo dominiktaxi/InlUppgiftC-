@@ -20,11 +20,12 @@ class EventLog
     public:
     EventLog(int);
     ~EventLog();
+    EventLog(const EventLog&) = delete;
+    EventLog& operator=(const EventLog&) = delete;
     int size() const;
     void append(Event*);
     const Event& getEventByIndex(int index) const;
     void set(int, Event*);
-    void printAll() const;
     Event event(int) const;
     EventList* list();
     

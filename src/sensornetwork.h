@@ -14,6 +14,7 @@ class SensorNetwork
     void addSensor(Sensor::TYPE);
     void scan(EventQueue*);
     int amount() const;
+    static int sensorCapacity();
     private:
     Sensor** _sensors;
     Time _time;

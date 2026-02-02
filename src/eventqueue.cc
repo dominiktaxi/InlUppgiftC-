@@ -18,13 +18,11 @@ EventQueue::~EventQueue()
     for(int i = 0; i < _capacity; i++)
     {
         delete _events[i];
+        _events[i] = nullptr;
     }
     delete[] _events;
 }
-void EventQueue::create(int capacity)
-{
-    
-}
+
 
 bool EventQueue::isEmpty() const
 {
@@ -36,7 +34,6 @@ bool EventQueue::isFull() const
     return _size == _capacity;
 }
 
-//ingen assert q != NULL för att Eventq skapas på stacken per definition
 void EventQueue::enqueue(Event* event)
 {
     assert( !isFull() );
@@ -44,7 +41,7 @@ void EventQueue::enqueue(Event* event)
     _events[index] = event;
     _size++;
 }
-    
+
 Event* EventQueue::dequeue()
 {
     assert( !EventQueue::isEmpty() );

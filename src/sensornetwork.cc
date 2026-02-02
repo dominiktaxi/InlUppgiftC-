@@ -21,6 +21,7 @@ SensorNetwork::~SensorNetwork()
         delete _sensors[ i ];
         _sensors[ i ] = nullptr;
     }
+    delete[] _sensors;
 }
 
 void SensorNetwork::addSensor(Sensor::TYPE type)
@@ -61,4 +62,9 @@ void SensorNetwork::scan(EventQueue* queue)
 int SensorNetwork::amount() const
 {
     return _amount;
+}
+
+int SensorNetwork::sensorCapacity()
+{
+    return _MAX;
 }

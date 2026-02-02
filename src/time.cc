@@ -1,6 +1,8 @@
 #include "time.h"
 #include <iostream>
 
+Time::Time(): start(std::chrono::steady_clock::now()) {}
+
 int Time::time() const
 {
     auto now = std::chrono::steady_clock::now();
