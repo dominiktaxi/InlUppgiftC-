@@ -1,11 +1,9 @@
 #include "sensor.h"
 #include "utils.h"
 
-Sensor::Sensor(TYPE type, int id, int threshold) : _type(type), _id(id), _threshold(threshold) 
+Sensor::Sensor(TYPE type, int id, int lowerThreshold, int upperThreshold) : _type(type), _id(id), 
+_lowerThreshold(lowerThreshold), _upperThreshold(upperThreshold)
 {
-    if(type == Sensor::TYPE::MOTION) _threshold = 0;
-    if(type == Sensor::TYPE::TEMPERATURE) _threshold = 30;
-    if(type == Sensor::TYPE::HUMIDITY) _threshold = 60;
 }
 
 int Sensor::readValue()
@@ -27,7 +25,12 @@ int Sensor::id() const
     return _id;
 }
 
-int Sensor::threshold() const
+int Sensor::lowerThreshold() const
 {
-    return _threshold;
+    return _lowerThreshold;
+}
+
+int Sensor::upperThreshold() const
+{
+    return _upperThreshold;
 }

@@ -24,10 +24,10 @@ SensorNetwork::~SensorNetwork()
     delete[] _sensors;
 }
 
-void SensorNetwork::addSensor(Sensor::TYPE type, int threshold)
+void SensorNetwork::addSensor(Sensor::TYPE type, int lowerThreshold, int upperThreshold)
 {
     assert(_amount < MAX_SENSORS);
-    _sensors[_amount] = new Sensor(type, _amount, threshold);
+    _sensors[_amount] = new Sensor(type, _amount, lowerThreshold, upperThreshold);
     std::cout << "sensor added" << std::endl;
     _amount++;
 }
@@ -38,7 +38,8 @@ void SensorNetwork::scan(EventQueue* queue)
     Event* event;
     for(int i = 0; i < _amount; i++)
     {
-        int threshold = _sensors[i]->threshold();
+        int lowerThreshold = _sensors[i]->lowerThreshold();
+        int upperThreshold = _sensors[i]->upperThreshold();
         int value = _sensors[ i ]->readValue();
         int sensorId = _sensors[ i ]->id();
         int timeStamp = _time.time();
@@ -50,15 +51,11 @@ void SensorNetwork::scan(EventQueue* queue)
 
         if( _sensors[ i ]->type() == Sensor::TYPE::TEMPERATURE )
         {
-            if ( value > threshold ) 
-            { event = new Event( Event::TYPE::OVER_THRESHOLD, type,  value, timeStamp, sensorId ); 
-                std::cout << "temperature over threshold" << std::endl;
-            }
+            if ( value > upperThreshold ) 
+            { event = new Event( Event::TYPE::OVER_THRESHOLD, type,  value, timeStamp, sensorId ); }
 
-            else if( value < threshold )
-            { event = new Event( Event::TYPE::UNDER_THRESHOLD, type, value, timeStamp, sensorId );  
-                std::cout << "temperature under threshold" << std::endl;
-            }
+            else if( value < lowerThreshold )
+            { event = new Event( Event::TYPE::UNDER_THRESHOLD, type, value, timeStamp, sensorId ); }
 
             else
             { event = new Event( Event::TYPE::TEMPERATURE_SAMPLE, type, value, timeStamp, sensorId ); }
@@ -66,14 +63,10 @@ void SensorNetwork::scan(EventQueue* queue)
         }
         else if( _sensors[ i ]->type() == Sensor::TYPE::HUMIDITY )
         {
-            if( value > threshold )    
-            { event = new Event( Event::TYPE::OVER_THRESHOLD, type, value, timeStamp, sensorId ); 
-                std::cout << "humidity over threshold" << std::endl;
-            }
-            else if( value < threshold )
-            { event = new Event(Event::TYPE::UNDER_THRESHOLD, type, value, timeStamp, sensorId);
-                std::cout << "humidity under threshold" << std::endl;
-            }
+            if( value > upperThreshold )    
+            { event = new Event( Event::TYPE::OVER_THRESHOLD, type, value, timeStamp, sensorId ); }
+            else if( value < lowerThreshold )
+            { event = new Event(Event::TYPE::UNDER_THRESHOLD, type, value, timeStamp, sensorId); }
             
             else
             { event = new Event( Event::TYPE::HUMIDITY_SAMPLE, type, value, timeStamp, sensorId ); }

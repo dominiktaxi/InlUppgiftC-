@@ -16,12 +16,14 @@ void AlarmSet::notifyObservers(Event* event)
     if( event->type() == Event::TYPE::OVER_THRESHOLD || event->type() == Event::TYPE::UNDER_THRESHOLD )
     {
         add( event->sensorId() );
-        std::cout << "observers added" << std::endl;
     }
     else if (event->type() != Event::TYPE::MOTION)
     {
-        std::cout << "observers removed" << std::endl;
         remove( event->sensorId() );
+    }
+    else
+    {
+        remove ( event->sensorId() );
     }
 }
 
@@ -37,15 +39,22 @@ bool AlarmSet::isInSet(int id) const
 void AlarmSet::add( int id )
 {
     assert(id < _capacity && id >= 0);
+    if(_set[id] == -1)
+    {
+        _amount++;
+    }
     _set[ id ] = id;
-    _amount++;
+    
 }
 
 void AlarmSet::remove( int id )
 {
     assert( id >= 0 && id < _capacity );
-    _set[ id ] = -1;
-    _amount--;
+    if(_set[id] != -1)
+    {
+        _set[ id ] = -1;
+        _amount--;
+    }
 }
 
 bool AlarmSet::alarmExists() const

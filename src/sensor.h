@@ -12,14 +12,16 @@ class Sensor
         HUMIDITY = 1,
         MOTION = 2
     };
-    Sensor(TYPE, int, int);
+    Sensor(TYPE, int, int, int);
     int readValue();
     TYPE type() const;
     int id() const;
-    int threshold() const;
+    int lowerThreshold() const;
+    int upperThreshold() const;
     private:
     TYPE _type;
     int _id;
-    int _threshold;
+    int _upperThreshold;
+    int _lowerThreshold;
 };
 #endif

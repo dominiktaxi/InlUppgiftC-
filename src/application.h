@@ -19,7 +19,7 @@ class Application
     };
     Application(int, int);
     ~Application();
-    void addSensors(Sensor::TYPE, int);
+    void addSensors(Sensor::TYPE, int, int);
     void attachObserver(Observer*);
     void notifyObservers(Event*);
     void awaitCommand();

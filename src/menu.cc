@@ -108,7 +108,6 @@ void Menu::awaitCommand()
         }
         else if (cmd == "check-alarms")
         {
-            std::cout << "WORKS IN MENU " << std::endl;
             _app->checkAlarms();
         }
         else 

@@ -12,9 +12,9 @@ _menu(this)
     _observerData._size = 0;
 }
 
-void Application::addSensors(Sensor::TYPE type, int threshold)
+void Application::addSensors(Sensor::TYPE type, int lowerThreshold, int higherThreshold)
 {
-    _sensorNetwork.addSensor( type, threshold );
+    _sensorNetwork.addSensor( type, lowerThreshold, higherThreshold );
 }
 
 // I dont delete the objects, user might choose to pass them from the stack, this is users responsibility
@@ -80,8 +80,6 @@ void Application::findEvent(int id)
         if(temp->event->sensorId() == id)
         {
             _printEvent(temp->event);
-            std::cout << "dude" << std::endl;
-           
         }
         temp = temp->next;
     }
@@ -105,6 +103,10 @@ void Application::checkAlarms() const
         if(observer->alarmExists())
         {
             std::cout << "there are " << observer->amountOfAlarms() << " active alarms" << std::endl;
+        }
+        else
+        {
+            std::cout << "no active alarms" << std::endl;
         }
     }
 }

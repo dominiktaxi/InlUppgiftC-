@@ -11,7 +11,7 @@ class SensorNetwork
     public:
     SensorNetwork();
     ~SensorNetwork();
-    void addSensor(Sensor::TYPE, int);
+    void addSensor(Sensor::TYPE, int, int);
     void scan(EventQueue*);
     int amount() const;
     static int sensorCapacity();

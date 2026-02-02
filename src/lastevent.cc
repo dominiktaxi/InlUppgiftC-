@@ -22,7 +22,7 @@ void LastEvent::add(Event* event)
 
 Event* LastEvent::event(int sensorId) const
 {
-    assert(sensorId >= 0 && sensorId < _capacity);
+    if(sensorId < 0 || sensorId >= _capacity) return nullptr;
     return _events[ sensorId ];
 }
 
