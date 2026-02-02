@@ -12,8 +12,8 @@ class AlarmSet : public Observer
     void add(int);
     void remove(int);
     void list() const;
-    bool alarmExists() const;
-    int amountOfAlarms() const;
+    bool alarmExists() const override;
+    int amountOfAlarms() const override;
     private:
     int _set[MAX_SENSORS];
     int _capacity;

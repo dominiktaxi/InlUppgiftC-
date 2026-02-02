@@ -36,7 +36,6 @@ class Application
     EventQueue _eventQueue;
     Menu _menu;
     LastEvent _lastEvent;
-    AlarmSet _alarmSet;
     struct ObserverData
     {
         Observer** _observers;

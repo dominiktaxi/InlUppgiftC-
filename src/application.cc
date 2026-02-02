@@ -99,9 +99,13 @@ void Application::sort( SortStrategy& strategy, SortStrategy::SORT_BY sortBy)
 
 void Application::checkAlarms() const
 {
-    if(_alarmSet.alarmExists())
+    for(int i = 0; i < _observerData._size; i++)
     {
-        std::cout << "there are " << _alarmSet.amountOfAlarms() << " active alarms" << std::endl;
+        Observer* observer = _observerData._observers[ i ];
+        if(observer->alarmExists())
+        {
+            std::cout << "there are " << observer->amountOfAlarms() << " active alarms" << std::endl;
+        }
     }
 }
 
@@ -126,30 +130,29 @@ void Application::_logEvents(Event* event)
 
 void Application::_printEvent(const Event* event)
 {
-    if(event != nullptr)
+    if(event == nullptr) return;
+   
+    const char * name;
+    if(event->sensorType() == Event::SENSOR_TYPE::HUMIDITY)
     {
-        const char * name;
-        if(event->sensorType() == Event::SENSOR_TYPE::HUMIDITY)
-        {
-            if(event->type() == Event::TYPE::OVER_THRESHOLD)     { name = "Humidity over threshold"; }
-            if(event->type() == Event::TYPE::UNDER_THRESHOLD)    { name = "Humidity under threshold"; }
-            else { name = "Humidity";}
-        }
-        else if( event->sensorType() == Event::SENSOR_TYPE::TEMPERATURE)
-        {
-            if(event->type() == Event::TYPE::OVER_THRESHOLD)     { name = "Temperature over threshold"; }
-            if(event->type() == Event::TYPE::UNDER_THRESHOLD)    { name = "Temperature under threshold"; }
-            else { name = "Temperature"; }
-        }
-        else if( event->sensorType() == Event::SENSOR_TYPE::MOTION)
-        {
-            if(event->value()) { name = "Motion Detected"; }
-            else {name = "No motion detected";}
-        }
-        std::cout << "TimeStamp: " << event->timestamp() << std::endl;
-        std::cout << "Name: " << name  << std::endl;
-        std::cout << "Reading: " << event->value() << std::endl;
-        std::cout << "ID: " << event->sensorId() << "\n" << std::endl;
-        name = "";
+        if(event->type() == Event::TYPE::OVER_THRESHOLD)     { name = "Humidity over threshold"; }
+        else if(event->type() == Event::TYPE::UNDER_THRESHOLD)    { name = "Humidity under threshold"; }
+        else { name = "Humidity"; }
     }
+    else if( event->sensorType() == Event::SENSOR_TYPE::TEMPERATURE)
+    {
+        if(event->type() == Event::TYPE::OVER_THRESHOLD)     { name = "Temperature over threshold"; }
+        else if(event->type() == Event::TYPE::UNDER_THRESHOLD)    { name = "Temperature under threshold"; }
+        else { name = "Temperature"; }
+    }
+    else if( event->sensorType() == Event::SENSOR_TYPE::MOTION)
+    {
+        if(event->value()) { name = "Motion Detected"; }
+        else {name = "No motion detected";}
+    }
+    std::cout << "TimeStamp: " << event->timestamp() << std::endl;
+    std::cout << "Name: " << name  << std::endl;
+    std::cout << "Reading: " << event->value() << std::endl;
+    std::cout << "ID: " << event->sensorId() << "\n" << std::endl;
+    name = "";
 }

@@ -1,6 +1,7 @@
 #include "alarmset.h"
 #include <assert.h>
 #include <utility>
+#include <iostream>
 AlarmSet::AlarmSet() : _amount(0), _capacity(MAX_SENSORS)
 {
     for(int i = 0; i < _capacity; i++)
@@ -11,12 +12,15 @@ AlarmSet::AlarmSet() : _amount(0), _capacity(MAX_SENSORS)
 
 void AlarmSet::notifyObservers(Event* event)
 {
+    
     if( event->type() == Event::TYPE::OVER_THRESHOLD || event->type() == Event::TYPE::UNDER_THRESHOLD )
     {
         add( event->sensorId() );
+        std::cout << "observers added" << std::endl;
     }
-    else
+    else if (event->type() != Event::TYPE::MOTION)
     {
+        std::cout << "observers removed" << std::endl;
         remove( event->sensorId() );
     }
 }
